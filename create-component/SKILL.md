@@ -106,10 +106,37 @@ decisions.
 - Event subclasses, not `CustomEvent` with detail
 - Cancelable for destructive/state-changing actions
 - Match native event names when wrapping native elements
+- Child elements should own their interaction (e.g. click) and dispatch
+  a composed, bubbling event (e.g. `activate`). The parent container
+  listens on its host for that event and reacts — don't have the parent
+  inspect `composedPath()` to identify which child was clicked
 
 ### Element CSS
 
-- Native nesting
+- Native nesting — nest state and pseudo-element selectors inside
+  `#container` with `&`:
+
+```css
+#container {
+  display: flex;
+  color: light-dark(#555, #aaa);
+
+  &:hover:not(.disabled) {
+    color: light-dark(#222, #ddd);
+  }
+
+  &.selected {
+    color: blue;
+
+    &::after { /* indicator */ }
+  }
+
+  &.disabled {
+    color: light-dark(#999, #555);
+  }
+}
+```
+
 - `light-dark()` for colors
 - Logical properties instead of directional
 - Baseline 2024 features or earlier
@@ -117,6 +144,8 @@ decisions.
 - Don't use `:host:has()` or `:host(:has())`
 - Never use `:host-context`
 - `pointer-events: none` on disabled hosts
+- `:host(:focus-visible) #container` for focus rings (focus lives on
+  the host via tabindex, style the container)
 
 ### CSS Custom Properties
 
@@ -132,9 +161,27 @@ decisions.
 ### Templates
 
 - Prefer ID selectors in shadow DOM; avoid BEM
-- Minimize wrappers; prefer `<slot>` directly
 - Vertical attribute formatting when >2 attrs
 - False case first in ternaries
+- Use a `#container` div in the shadow root for all visual styling and
+  layout. Keep `:host` minimal (`display: block`, `outline: none`, and
+  any inherited CSS custom properties that slotted children need).
+  Pass reactive state to the container via `classMap`:
+
+```ts
+import { classMap } from 'lit/directives/class-map.js';
+
+render() {
+  return html`
+    <div id="container" class="${classMap({
+      vertical: !!this.vertical,
+      selected: !!this.selected,
+    })}">
+      <slot></slot>
+    </div>
+  `;
+}
+```
 
 **IMPORTANT:** When a reference API does not cleanly map to a web
 component API, surface that to the user for discussion.
@@ -152,10 +199,11 @@ component API, surface that to the user for discussion.
    - Template in `render()` method
 
 3. Write CSS:
-   - Native CSS (nesting, `light-dark()`, logical properties)
+   - Native CSS nesting inside `#container` for state/pseudo selectors
+   - `light-dark()`, logical properties
    - Shadow DOM scoping (IDs not BEM)
    - Token-derived fallback values
-   - `box-sizing` reset
+   - `box-sizing` reset on `#container`
 
 4. Create sub-elements only if a11y/composition requires them
 5. Update package exports if applicable
@@ -169,6 +217,49 @@ component API, surface that to the user for discussion.
 - `isServer` guards on browser-only APIs
 - Quote attribute values in Lit templates `attr="${this.value}"`
 - Side effects in `willUpdate`, not `render`
+
+### Multi-Element Event Flow
+
+When a component is split across parent and child elements (e.g. tabs +
+tab), use the **child-dispatches / parent-listens** pattern:
+
+1. The child element adds an event listener on itself (e.g. `click`)
+2. The child dispatches a composed, bubbling event
+   (`new Event('activate', { bubbles: true, composed: true })`)
+3. The parent listens on its host via `addEventListener` in the
+   constructor — not via template `@event` bindings on shadow DOM
+   elements
+4. The parent identifies the child via `event.target`
+
+```ts
+// Child element
+constructor() {
+  super();
+  this.addEventListener('click', this.#onClick);
+}
+
+#onClick() {
+  if (this.disabled) return;
+  this.dispatchEvent(
+    new Event('activate', { bubbles: true, composed: true }),
+  );
+}
+
+// Parent container
+constructor() {
+  super();
+  this.addEventListener('activate', this.#onChildActivate);
+}
+
+#onChildActivate(event: Event) {
+  const child = event.target as ChildElement;
+  const index = this.#children.indexOf(child);
+  if (index >= 0) this.#select(index);
+}
+```
+
+This keeps interaction ownership in the child and avoids brittle
+`composedPath()` inspection in the parent.
 
 ---
 
