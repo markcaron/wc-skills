@@ -47,6 +47,8 @@ file, read it for the full rule details and examples.
 
 ### Critical
 [Violations that break semantics, a11y, or user expectations]
+(Do not claim the output is "fully accessible" — state what was
+addressed and known limitations.)
 
 ### Warnings
 [Material dishonesty, suboptimal element choices]
@@ -196,7 +198,8 @@ Key principles:
 - Don't put `role="menuitem"` on links — it kills link semantics
 - Menus don't have selected values — that's a Combobox
 - Site nav should use Disclosure, not Menubar
-- Don't nest non-`tab` elements in a `tablist` (children presentational)
+- Don't nest non-`tab` elements in a `tablist` (children presentational);
+  place secondary actions after the tabset to preserve Tab → tabpanel flow
 - Dropdowns must open by activation, not hover
 
 For full rules, examples, and rationale, see
@@ -209,6 +212,11 @@ For full rules, examples, and rationale, see
 > No ARIA is better than bad ARIA.
 > — [W3C WAI](https://www.w3.org/WAI/ARIA/apg/practices/read-me-first/)
 
+- **implementation-priority** — When building interactive UI, use the
+  highest option that fits: (1) existing accessible component in the
+  codebase or design system, (2) a component library, (3) native
+  platform semantics, (4) native element + minimum ARIA, (5) fully
+  custom ARIA widget with complete keyboard/focus/state behavior.
 - **apg-is-not-a-pattern-library** — The APG was created to demonstrate
   ARIA's capabilities, not as a source of truth for implementation. Its
   code examples disproportionately favor ARIA over native HTML.
@@ -321,6 +329,28 @@ For full rules, entity tables, and code examples, see
 
 ---
 
+### Separation of Concerns
+
+- **unobtrusive-javascript** — Don't put JS in HTML attributes. No
+  `onclick`, `onmouseover`, `onsubmit`, or any `on*` handlers in
+  markup. Attach behavior from script files or modules using
+  `addEventListener`. Inline handlers couple behavior to markup, break
+  CSP policies, and can't be progressively enhanced.
+- **content-presentation-behavior** — HTML defines structure and
+  meaning. CSS defines presentation. JS defines behavior. Don't use
+  one layer to do another's job: no `<div>` styled to look like a
+  button (CSS doing HTML's job), no JS setting `display: none` when
+  the `hidden` attribute works (JS doing HTML's job), no tables for
+  layout (HTML doing CSS's job).
+- **progressive-enhancement** — Start with semantic HTML that works
+  without CSS or JS. Layer on styles, then behavior. A form should
+  submit without JS. A link should navigate without a click handler.
+  Content should be readable without stylesheets. This isn't
+  idealism — it's fault tolerance. HTML and CSS fail silently; JS
+  fails loudly.
+
+---
+
 ### Miscellaneous
 
 - **lang-attribute** — `<html>` must have `lang`. Use `lang` on
@@ -385,3 +415,4 @@ When reviewing a Lit component's `render()` template:
 - [Red Hat Design System — Links](https://ux.redhat.com/foundations/interactions/links/)
 - [Red Hat Design System — Accessible Tables](https://ux.redhat.com/accessibility/content/#accessible-tables)
 - [Red Hat Design System — Table Accessibility](https://ux.redhat.com/elements/table/accessibility/)
+- [Microsoft a11y-llm-eval](https://microsoft.github.io/a11y-llm-eval-report/) — [building-accessible-ui skill](https://github.com/microsoft/a11y-llm-eval/tree/main/config/skills/building-accessible-ui)

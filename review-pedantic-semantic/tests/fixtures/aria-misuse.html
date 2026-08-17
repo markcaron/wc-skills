@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ARIA Misuse Violations</title>
+</head>
+<body>
+  <h1>ARIA Misuse Violations</h1>
+
+  <!-- prefer-native-html -->
+  <div role="button" tabindex="0" aria-pressed="false">Toggle</div>
+  <div role="navigation" aria-label="Main">
+    <a href="/">Home</a>
+  </div>
+  <span role="link" tabindex="0" onclick="navigate()">About</span>
+
+  <!-- no-redundant-roles -->
+  <nav role="navigation">
+    <ul role="list">
+      <li><a href="/" role="link">Home</a></li>
+    </ul>
+  </nav>
+  <main role="main">
+    <button role="button">Save</button>
+  </main>
+
+  <!-- no-aria-for-visibility -->
+  <div aria-hidden="true">
+    <button>This button is still tabbable</button>
+    <a href="/secret">Hidden link still focusable</a>
+  </div>
+
+  <!-- no-aria-on-non-interactive -->
+  <div role="checkbox" aria-checked="false">Accept terms</div>
+  <div role="slider" aria-valuenow="50">Volume</div>
+
+  <!-- dont-override-native-semantics -->
+  <h2 role="button">Click me</h2>
+  <a href="/about" role="button">About</a>
+  <table role="presentation">
+    <caption>Real Data</caption>
+    <thead><tr><th>Name</th><th>Value</th></tr></thead>
+    <tbody><tr><td>X</td><td>1</td></tr></tbody>
+  </table>
+</body>
+</html>

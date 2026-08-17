@@ -207,17 +207,31 @@ links, popovers, or "add new" actions inside a `tablist` or inside a
 **Good:**
 
 ```html
-<div class="tab-bar">
-  <div role="tablist">
-    <button role="tab" aria-selected="true">Dashboard</button>
-    <button role="tab">Settings</button>
-  </div>
-  <button onclick="addTab()">+ Add tab</button>
+<div role="tablist">
+  <button role="tab" aria-selected="true" tabindex="0">Dashboard</button>
+  <button role="tab" tabindex="-1">Settings</button>
 </div>
+<div role="tabpanel" tabindex="0">
+  <!-- panel content -->
+</div>
+<button class="add-tab">+ Add tab</button>
 ```
 
-Place secondary actions (close buttons, context menus, "add new")
-**outside** the `tablist` as siblings, or in a toolbar adjacent to it.
+Place secondary actions **after the entire tabset** (tablist +
+tabpanel) in DOM order. Use CSS to visually position the button in
+the tab bar if needed.
+
+**Why after, not between?** The APG tabs keyboard contract states that
+Tab from the tablist moves focus to "the tabpanel unless the first
+element containing meaningful content inside the tabpanel is
+focusable." Placing a focusable element between the tablist and
+tabpanel breaks this intended flow. Placing it after the tabpanel
+preserves the contract: **tablist → tabpanel → action button**.
+
+This is an imperfect solution — the visual-DOM order may not perfectly
+match — but it's the least disruptive to the expected keyboard
+contract. There is currently no spec-compliant way to add secondary
+actions to a tablist without some tradeoff.
 
 **Note:** The W3C is developing an
 [`aria-actions` attribute](https://github.com/w3c/aria/issues/1440)

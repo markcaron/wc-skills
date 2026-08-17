@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Forms and Images Violations</title>
+</head>
+<body>
+  <main>
+    <h1>Forms and Images Violations</h1>
+
+    <!-- labels-required: no label -->
+    <input type="text" placeholder="Enter your name">
+
+    <!-- label-is-not-a-group-label -->
+    <label>Shipping method</label>
+    <input type="radio" name="ship" value="standard"> Standard
+    <input type="radio" name="ship" value="express"> Express
+
+    <!-- fieldset-for-groups: div instead of fieldset -->
+    <div class="radio-group">
+      <h2>Payment method</h2>
+      <label><input type="radio" name="pay" value="card"> Card</label>
+      <label><input type="radio" name="pay" value="bank"> Bank</label>
+    </div>
+
+    <!-- button-type-explicit: no type -->
+    <form>
+      <button>Cancel</button>
+      <button>Save</button>
+    </form>
+
+    <!-- meaningful-images-need-alt: missing alt -->
+    <img src="chart.png">
+
+    <!-- decorative-images-hidden: decorative without alt="" -->
+    <img src="decoration.png" alt="decorative swirl pattern">
+
+    <!-- no-icon-fonts -->
+    <i class="fa fa-search"></i>
+    <span class="material-icons">home</span>
+
+    <!-- functional-images-describe-action: wrong alt -->
+    <a href="/"><img src="logo.svg" alt="Company logo"></a>
+  </main>
+</body>
+</html>

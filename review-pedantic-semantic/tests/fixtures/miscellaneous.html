@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!-- lang-attribute: missing lang -->
+<html>
+<head>
+  <!-- page-title: vague title -->
+  <title>Page</title>
+</head>
+<body>
+  <main>
+    <h1>Miscellaneous Violations</h1>
+
+    <!-- no-tabindex-positive -->
+    <button tabindex="5">First</button>
+    <button tabindex="3">Second</button>
+    <button tabindex="1">Third</button>
+
+    <!-- skip-links: no skip link -->
+
+    <!-- dom-order-matches-visual-order -->
+    <div style="display: flex; flex-direction: row-reverse;">
+      <a href="/a">A</a>
+      <a href="/b">B</a>
+      <a href="/c">C</a>
+    </div>
+
+    <!-- iframe-needs-title: missing title -->
+    <iframe src="video.html"></iframe>
+
+    <!-- svg-accessibility: meaningful SVG without role/title -->
+    <svg viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="40" fill="red" />
+    </svg>
+
+    <!-- hidden-content-patterns: aria-hidden with focusable children -->
+    <div aria-hidden="true">
+      <button>Still tabbable</button>
+    </div>
+
+    <!-- use-time-element -->
+    <p>Published on November 14, 2016</p>
+
+    <!-- use-blockquote-q-cite: styled div as quote -->
+    <div class="quote">
+      <p>One material should not be used as a substitute for another.</p>
+      <p>&mdash; Jeremy Keith</p>
+    </div>
+
+    <!-- use-dialog: custom modal -->
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-content">
+        <button class="close">&times;</button>
+        <p>Modal content</p>
+      </div>
+    </div>
+
+    <!-- unobtrusive-javascript -->
+    <button onclick="save()">Save</button>
+    <div onmouseover="highlight(this)">Hover me</div>
+
+    <!-- content-presentation-behavior: JS doing HTML's job -->
+    <div id="content"></div>
+    <script>
+      document.getElementById('content').style.display = 'none';
+    </script>
+  </main>
+</body>
+</html>

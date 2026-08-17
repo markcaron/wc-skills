@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Table Violations</title>
+</head>
+<body>
+  <main>
+    <h1>Table Violations</h1>
+
+    <!-- tables-for-tabular-data-only: simple key-value data -->
+    <table>
+      <tr><th>Name</th><td>Ansible</td></tr>
+      <tr><th>Version</th><td>2.15</td></tr>
+      <tr><th>License</th><td>GPL-3.0</td></tr>
+    </table>
+
+    <!-- tables-need-structure: missing caption, thead, scope -->
+    <table>
+      <tr>
+        <td>Date</td>
+        <td>Event</td>
+        <td>Venue</td>
+      </tr>
+      <tr>
+        <td>12 February</td>
+        <td>Waltz with Strauss</td>
+        <td>Main Hall</td>
+      </tr>
+    </table>
+
+    <!-- never-change-table-display -->
+    <table style="display: grid;">
+      <caption>Grid Table</caption>
+      <thead><tr><th scope="col">A</th><th scope="col">B</th></tr></thead>
+      <tbody><tr><td>1</td><td>2</td></tr></tbody>
+    </table>
+
+    <!-- no-layout-tables -->
+    <table>
+      <tr>
+        <td>Sidebar navigation</td>
+        <td>Main content area</td>
+      </tr>
+    </table>
+  </main>
+</body>
+</html>

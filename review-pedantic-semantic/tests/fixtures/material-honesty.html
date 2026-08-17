@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Material Honesty Violations</title>
+</head>
+<body>
+  <!-- use-elements-for-their-intended-purpose -->
+  <div class="button" onclick="save()">Save</div>
+  <span class="link" onclick="location.href='/about'">About</span>
+
+  <!-- links-navigate-buttons-act -->
+  <button onclick="location.href='/pricing'">View pricing</button>
+  <a href="#" onclick="deleteItem(); return false;">Delete</a>
+  <a onclick="toggleMenu()">Menu</a>
+
+  <!-- no-div-soup -->
+  <div class="header">
+    <h1>Material Honesty Violations</h1>
+    <div class="nav">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+    </div>
+  </div>
+  <div class="main">
+    <div class="article">
+      <div class="bold">Important text</div>
+      <div class="italic">Emphasized text</div>
+    </div>
+  </div>
+  <div class="footer">Copyright 2026</div>
+</body>
+</html>

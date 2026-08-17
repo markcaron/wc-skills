@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Link Violations</title>
+</head>
+<body>
+  <main>
+    <h1>Link Violations</h1>
+
+    <!-- no-click-here -->
+    <p>For documentation, <a href="/docs">click here</a>.</p>
+    <p><a href="/blog/post">Read more</a></p>
+    <p><a href="/pricing">Learn more</a></p>
+
+    <!-- no-url-as-link-text -->
+    <p>Visit <a href="https://example.com/docs/getting-started">
+      https://example.com/docs/getting-started</a></p>
+
+    <!-- no-verb-link-text -->
+    <p><a href="/features">Click to see features</a></p>
+
+    <!-- unique-link-text: three identical links, different destinations -->
+    <p><a href="/product-a">Learn more</a></p>
+    <p><a href="/product-b">Learn more</a></p>
+    <p><a href="/product-c">Learn more</a></p>
+
+    <!-- keep-link-text-brief -->
+    <p><a href="/docs">Read our documentation to learn about getting started
+    with the platform and configuring your environment</a></p>
+
+    <!-- no-forced-new-window: missing rel and no indication -->
+    <p><a href="https://example.com" target="_blank">Example</a></p>
+
+    <!-- underlines-mean-links -->
+    <p><u>This important text is underlined for emphasis.</u></p>
+
+    <!-- link-color-reserved -->
+    <p style="color: #0066cc;">This blue text is not a link.</p>
+
+    <!-- inline-links-need-underline -->
+    <p>Visit our <a href="/docs" style="text-decoration: none;">documentation</a>
+    for help.</p>
+  </main>
+</body>
+</html>
