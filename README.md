@@ -1,6 +1,6 @@
 # Web Component Skills
 
-AI agent skills for building and reviewing Lit web components. Distilled from 4,800+ PR reviews across the [PatternFly Elements](https://github.com/patternfly/patternfly-elements) ecosystem.
+AI agent skills for building and reviewing Lit web components.
 
 ## Skills
 
@@ -19,4 +19,4 @@ Copy any skill directory into your project's `.cursor/skills/`, `.claude/skills/
 
 ## License
 
-MIT
+[MIT](LICENSE)
