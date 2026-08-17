@@ -63,6 +63,24 @@ npx @axe-core/cli <url> --tags wcag2a,wcag2aa,best-practice
 | moderate | Should fix — noticeable impact |
 | minor    | Nice to fix — edge-case or cosmetic |
 
+#### ElementInternals false positives
+
+axe-core inspects DOM attributes, not the AOM (Accessibility Object
+Model). When a custom element sets roles or states via
+ElementInternals (e.g. `this.#internals.role = 'tab'`), axe cannot
+see them. This produces false positives:
+
+- `aria-required-children` — parent with `role="tablist"` flagged
+  because axe doesn't recognize children whose role is set via
+  ElementInternals
+- `aria-required-parent` — child role not recognized for the same
+  reason
+
+**Do not change the component code to work around these.** The ax
+tree is correct — verify by inspecting the browser's accessibility
+tree directly. Flag these in the report as **known axe-core false
+positives** and move on.
+
 ### Phase 3: Check Internal ARIA
 
 - ElementInternals used for role, aria-label, aria-checked, etc.?
