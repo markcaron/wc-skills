@@ -72,7 +72,13 @@ Read `ADVICE.md` for reference rules.
 - [ ] Minimal API surface (easy to add, hard to remove)?
 - [ ] No sub-elements unless a11y/composition requires?
 - [ ] ECMAScript private fields (`#field`)?
-- [ ] `override` on lifecycle methods?
+- [ ] `override` on all methods that exist on the parent class (type
+      safety check)? `super` called in standard CE lifecycle
+      (`connectedCallback`, `disconnectedCallback`) and `update()`?
+      `super` not needed for reactive hooks (`render`, `willUpdate`,
+      `updated`, `firstUpdated`, `shouldUpdate`) when extending
+      LitElement directly, but required when extending another
+      component?
 - [ ] Member ordering follows convention?
 
 ### Phase 3: Code Patterns

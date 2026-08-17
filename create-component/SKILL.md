@@ -211,7 +211,16 @@ component API, surface that to the user for discussion.
 ### Code Patterns
 
 - ECMAScript private fields (`#field`), not TypeScript `private`
-- `override` on lifecycle methods
+- `override` on any method that exists on the parent class — it is a
+  TypeScript safety check (catches typos and renames), not a semantic
+  statement about overriding behavior. The real distinction is `super`
+  calls:
+  - Standard CE lifecycle (`connectedCallback`, `disconnectedCallback`)
+    and `update()`: always call `super` — Lit has real behavior there
+  - Reactive update hooks (`render`, `willUpdate`, `updated`,
+    `firstUpdated`, `shouldUpdate`): `super` not needed when extending
+    LitElement directly (base implementations are no-ops), but required
+    when extending another component that implements them
 - `static styles = [styles]` array form
 - Controllers for cross-cutting concerns
 - `isServer` guards on browser-only APIs
