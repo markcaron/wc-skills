@@ -209,6 +209,14 @@ For full rules, examples, and rationale, see
 > No ARIA is better than bad ARIA.
 > — [W3C WAI](https://www.w3.org/WAI/ARIA/apg/practices/read-me-first/)
 
+- **apg-is-not-a-pattern-library** — The APG was created to demonstrate
+  ARIA's capabilities, not as a source of truth for implementation. Its
+  code examples disproportionately favor ARIA over native HTML.
+  Reference the APG for **pattern names** and **keyboard contracts** —
+  not for code to copy. The [WebAIM Million](https://webaim.org/projects/million/)
+  found that more ARIA correlates with more detected errors.
+  ([Bailey](https://ericwbailey.website/published/heres-how-to-instruct-a-llm-to-reference-the-aria-authoring-practices-guide/),
+  [Bushell](https://dbushell.com/2026/06/26/aria-anti-patterns-and-you/))
 - **prefer-native-html** — Use `<button>`, `<nav>`, `<a>` instead of
   ARIA-decorated `<div>`s. Native elements give you keyboard, focus,
   and a11y for free; ARIA gives you only the tree label.
@@ -372,7 +380,7 @@ When reviewing a Lit component's `render()` template:
 - Mark Caron, [Let's bring \<table\> to the table, again](https://heyoka.medium.com/lets-bring-table-to-the-table-again-f1ae751159d5)
 - Adam Silver, [But sometimes links look like buttons (and buttons look like links)](https://medium.com/simple-human/but-sometimes-links-look-like-buttons-and-buttons-look-like-links-9b371c57b3d2)
 - Nathan Curtis, [Buttons in Design Systems](https://medium.com/eightshapes-llc/buttons-in-design-systems-eac3acf7e23)
-- [W3C ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/)
+- [W3C ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/) (pattern names and keyboard contracts only — [not code examples](https://ericwbailey.website/published/heres-how-to-instruct-a-llm-to-reference-the-aria-authoring-practices-guide/))
 - [Red Hat Design System — Accessibility](https://ux.redhat.com/accessibility/)
 - [Red Hat Design System — Links](https://ux.redhat.com/foundations/interactions/links/)
 - [Red Hat Design System — Accessible Tables](https://ux.redhat.com/accessibility/content/#accessible-tables)
