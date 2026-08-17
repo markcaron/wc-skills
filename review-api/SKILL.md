@@ -3,9 +3,10 @@ name: review-api
 description: >
   Review a Lit web component's API (HTML, CSS, JS) quality. Checks
   attributes, properties, events, slots, CSS parts, custom properties,
-  code patterns, Lit conventions, and test coverage. Use when asked to
-  "review api", "review code", "check element quality", "audit api",
-  or before opening a PR.
+  code patterns, and Lit conventions. Use when asked to "review api",
+  "review code", "check element quality", "audit api", or before
+  opening a PR. For test and documentation coverage, use the companion
+  review-tests and review-docs skills.
 tools: Read, Glob, Grep, Shell
 ---
 
@@ -13,6 +14,10 @@ tools: Read, Glob, Grep, Shell
 
 Review a Lit web component's HTML, CSS, and JS API quality against
 ADVICE.md rules and Lit conventions.
+
+Companion skills:
+- **review-tests** — test suite coverage and patterns
+- **review-docs** — JSDoc, CEM documentation, and inline comments
 
 ## Workflow
 
@@ -124,44 +129,7 @@ npx eslint <element-dir>/**/*.ts
 npx stylelint <element-dir>/**/*.css
 ```
 
-### Phase 4: Test Review
-
-- [ ] Tests exist?
-- [ ] Test public API, not shadow DOM internals?
-- [ ] a11ySnapshot assertions present?
-- [ ] Keyboard navigation tested?
-- [ ] Form submission tested (if form-associated)?
-- [ ] Setup in `beforeEach`, assertions in `it`?
-- [ ] No arrow functions in test blocks?
-- [ ] All component states covered (disabled, expanded, error, etc.)?
-
-### Phase 5: JSDoc and Documentation
-
-- [ ] `@summary` present on element class?
-- [ ] All public properties/methods have `/** */` JSDoc (not `//`)?
-- [ ] CSS custom properties documented with `/** */` comments in CSS,
-      co-located with declaration or `var()` reference?
-- [ ] CSS parts documented with HTML comments before the `part` element
-      in template?
-- [ ] Slots documented with HTML comments before the `<slot>` element
-      in template?
-- [ ] `@fires` for all dispatched events?
-- [ ] No unnecessary `@default` tags (analyzer picks up initializers)?
-
-Prefer HTML comments in template for part and slot descriptions, CSS
-comments for `@cssprop`, over JSDoc on the class.
-
-#### CEM health (optional)
-
-If Custom Elements Manifest tooling is available:
-
-```bash
-cem health --component <element-name> --format json
-```
-
-Flag any category below 80%.
-
-### Phase 6: Report
+### Phase 4: Report
 
 ```markdown
 ## API Review: <element-name>
@@ -169,8 +137,6 @@ Flag any category below 80%.
 ### Summary
 - API: X issues (Y critical)
 - Code: X pattern violations
-- Tests: X gaps
-- Docs: coverage assessment
 
 ### Critical Issues
 [Must fix — API surface violations are critical because they're hard
@@ -185,6 +151,10 @@ to fix post-release]
 ### Intentional Divergences
 [Where we chose different API/behavior than reference, and why]
 ```
+
+For test and documentation findings, run the companion skills:
+- `review-tests` for test coverage and patterns
+- `review-docs` for JSDoc and CEM documentation
 
 ## Principles
 

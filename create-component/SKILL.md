@@ -22,7 +22,7 @@ invoked independently or run end-to-end.
 | 4. Demos | Create HTML demo files | Phase 3 output |
 | 5. Test | Write unit and a11y tests | Phase 3 output |
 | 6. Document | Write README and JSDoc | Phase 3 output |
-| 7. Audit | Run review-api and review-a11y | Phases 3–6 complete |
+| 7. Audit | Run review skills | Phases 3–6 complete |
 
 ---
 
@@ -389,8 +389,10 @@ Flag any category below 80%.
 
 Prompt the user to run the companion review skills:
 
-- **review-api** — API surface quality, code patterns, test coverage
+- **review-api** — API surface quality, code patterns
 - **review-a11y** — accessibility tree verification, keyboard, ARIA
+- **review-tests** — test suite coverage and patterns
+- **review-docs** — JSDoc, CEM documentation, inline comments
 
 Fix all critical and warning findings.
 
